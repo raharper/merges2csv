@@ -144,7 +144,10 @@ else:
 if args.outfilename is not None:
     outfilename = args.outfilename
 else:
-    outfilename = 'merges-%s.csv' % args.COMPONENT
+    outfilename = 'merges-%s' % args.COMPONENT
+    if args.team:
+        outfilename += '-%s' % args.team
+    outfilename += ".csv"
 
 with open(outfilename, 'w') as f:
     writer = csv.writer(f, lineterminator="\n")
@@ -212,6 +215,8 @@ with open(outfilename, 'w') as f:
                         else:
                             package['responsibility'] = teamname
                         value = package.get(key, '')
+                        skip = False
+                        break
                     else:
                         skip = True
             else:
